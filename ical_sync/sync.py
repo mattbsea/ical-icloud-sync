@@ -15,7 +15,6 @@ def prune_deleted_events(apple_cal: caldav.Calendar, ical_cal: icalendar.Calenda
 
         if str(apple_event.icalendar_component.get("UID")) not in ical_event_ids:
             logger.info("Removing event from apple calendar: {}", apple_event.icalendar_instance.to_ical())
-            input("Continue ? ")
             apple_event.delete()
 
 
