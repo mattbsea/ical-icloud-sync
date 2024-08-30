@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "icalendar-sync"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+packages = [{include = "ical_sync"}]
+
+[tool.poetry.scripts]
+icalsync = "ical_sync.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+icalendar = "^5.0.13"
+requests = "^2.32.3"
+pyicloud = "^1.0.0"
+click = "^8.1.7"
+loguru = "^0.7.2"
+caldav = "^1.3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.11.2"
+pylint = "^3.2.6"
+ipython = "^8.27.0"
+black = "^24.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
