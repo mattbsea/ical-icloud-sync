@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# run initial IP update
+exec \
+    s6-setuidgid abc /app/ical-icloud-sync.sh

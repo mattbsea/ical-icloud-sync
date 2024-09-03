@@ -1,4 +1,4 @@
-FROM python:3.11-alpine
+FROM ghcr.io/linuxserver/baseimage-alpine:3.19
 
 ARG S6_OVERLAY_VERSION=3.2.0.0
 
@@ -15,21 +15,15 @@ ENV PYTHONFAULTHANDLER=1 \
     POETRY_HOME='/usr/local' \
     POETRY_VERSION=1.8.3
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
-RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
-RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
-ENTRYPOINT ["/init"]
+COPY rootfs/ /
 
 WORKDIR /app
 
-RUN apk add curl
+RUN apk add curl python3
 
-RUN curl -sSL https://install.python-poetry.org | python -
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-interaction
 
 COPY . ./
-
-CMD ["python", "-m", "ical_sync.main"]
